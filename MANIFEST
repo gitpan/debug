@@ -1,0 +1,10 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+lib/debug.pm
+t/10_debug_test.t
+t/20_debug_log_filters_test.t
+t/30_debug_errors_test.t
+t/pod.t
+t/pod_coverage.t
