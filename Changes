@@ -1,5 +1,8 @@
 Revision history for Perl extension debug.
 
+0.02 Wed June 1, 2005
+    - added support for lazily loaded Data::Dumper::Dumper()
+
 0.01 Fri Aug 20 21:05:52 2004
     - module created
 

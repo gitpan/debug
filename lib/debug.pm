@@ -4,7 +4,7 @@ package debug;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub import {
     shift;
@@ -19,7 +19,7 @@ sub import {
 	# (meaning, have any package names been passed in)
 	if (@packages) {
 		# turn DEBUG on for each class in the package list
-		*{"${_}::DEBUG"} = sub { 1 } foreach @packages;
+    	*{"${_}::DEBUG"} = sub { 1 } foreach @packages;
 	}
 	else {
 		# either that we are just registering 
@@ -29,6 +29,10 @@ sub import {
 		# subroutine
 		my ($calling_package) = caller();
 		*{"${calling_package}::DEBUG"} = sub { 0 };
+		*{"${calling_package}::Dumper"} = sub {
+            eval { require Data::Dumper };
+            return Data::Dumper::Dumper(@_) unless $@;
+            };
 	}
 }
 
@@ -282,6 +286,33 @@ This will remove the log filter for the specific C<$package>, thereby returning 
 
 =back
 
+=head1 EXPORTS
+
+This module exports two functions:
+
+=over 4
+
+=item B<DEBUG>
+
+This is just a boolean flag, so that you can write:
+
+  debug->log("This line should work") if DEBUG;
+
+=item B<Dumper>
+
+This is a lazily loaded C<Data::Dumper::Dumper> wrapper. Why? Well, to start with, someone suggested it to me (see L<ACKNOWLEDGEMENTS>), and secondly I realized how many times I have done this:
+
+  use Data::Dumper;
+  debug->log(Dumper(\%strucutre)) if DEBUG;
+
+And how much nicer it would be if I could do this:
+
+  debug->log(Dumper(\%strucutre)) if DEBUG;
+
+The reason we lazily load L<Data::Dumper> is that it will take up a lot of memory, so we don't load it unless we absolutely have to. If you do not have L<Data::Dumper> installed (for some strange reason), this function will basically return undef.
+
+=back
+
 =head1 BUGS
 
 None that I am aware of. Of course, if you find a bug, let me know, and I will be sure to fix it. This module has been used in several production sites for over 2 years now without incident, the code released here has only been slightly modified, and documentation and tests added.
@@ -293,9 +324,9 @@ I use B<Devel::Cover> to test the code coverage of my tests, below is the B<Deve
  ------------------------ ------ ------ ------ ------ ------ ------ ------
  File                       stmt branch   cond    sub    pod   time  total
  ------------------------ ------ ------ ------ ------ ------ ------ ------
- debug.pm                  100.0  100.0    n/a  100.0  100.0  100.0  100.0
+ debug.pm                  100.0   96.4    n/a  100.0  100.0  100.0   99.3
  ------------------------ ------ ------ ------ ------ ------ ------ ------
- Total                     100.0  100.0    n/a  100.0  100.0  100.0  100.0
+ Total                     100.0   96.4    n/a  100.0  100.0  100.0   99.3
  ------------------------ ------ ------ ------ ------ ------ ------ ------
 
 =head1 A NOTE ABOUT NAMING
@@ -306,13 +337,21 @@ This module uses an all lowercase name, which is considered "wrong" by the perl-
 
 This module provides a simple flexible and lightweight means of logging your debug calls. If you have more sophisticated debugging/logging needs I suggest you look at L<Log::Log4Perl>. While I have never used it myself, I have heard many good things about it. 
 
+=head1 ACKNOWLEDGEMENTS
+
+=over 4
+
+=item Thanks to Terrence Brannon (metaperl) for suggesting the lazily loaded C<Data::Dumper::Dumper> trick.
+
+=back
+
 =head1 AUTHOR
 
 stevan little, E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2004 by Infinity Interactive, Inc.
+Copyright 2004, 2005 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 
