@@ -1,0 +1,11 @@
+This is the debian package for the debug module.
+It was created by Mark Lawrence <nomad@null.net> using dh-make-perl.
+
+COPYRIGHT AND LICENCE
+
+Copyright (C) 2004, 2005 Infinity Interactive, Inc.
+
+http://www.iinteractive.com
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.

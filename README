@@ -1,4 +1,4 @@
-debug version 0.02
+debug version 0.03
 ===========================
 
 See the individual module documentation for more information
@@ -11,6 +11,11 @@ To install this module type the following:
    make
    make test
    make install
+
+To create a Debian package type the following:
+
+   perl Makefile.PL
+   make dist deb
 
 DEPENDENCIES
 

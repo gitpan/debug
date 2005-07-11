@@ -1,5 +1,9 @@
 Revision history for Perl extension debug.
 
+0.03 Wed July 6, 2005
+    - added debian/* files to allow for Debian users to easily
+      install the module. Thanks to Mark Lawrence for the patch.
+
 0.02 Wed June 1, 2005
     - added support for lazily loaded Data::Dumper::Dumper()
 

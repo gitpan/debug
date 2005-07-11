@@ -4,7 +4,7 @@ package debug;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 sub import {
     shift;
@@ -342,6 +342,8 @@ This module provides a simple flexible and lightweight means of logging your deb
 =over 4
 
 =item Thanks to Terrence Brannon (metaperl) for suggesting the lazily loaded C<Data::Dumper::Dumper> trick.
+
+=item Thanks to Mark Lawrence (nomad@null.net) for the patch to add debian/* files to allow for Debian users to easily install the module.
 
 =back
 

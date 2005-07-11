@@ -1,0 +1,13 @@
+Source: libdebug-perl
+Section: perl
+Priority: optional
+Build-Depends: debhelper (>= 4.0.2)
+Build-Depends-Indep: perl (>= 5.8.0-7)
+Maintainer: Mark Lawrence <nomad@null.net>
+Standards-Version: 3.6.1
+
+Package: libdebug-perl
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+Description:  Perl pragma for debugging and logging of debug lines.
+ .
