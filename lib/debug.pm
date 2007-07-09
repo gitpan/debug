@@ -4,7 +4,7 @@ package debug;
 use strict;
 use warnings;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 sub import {
     shift;
@@ -28,7 +28,9 @@ sub import {
 		# so that we can make a null DEBUG
 		# subroutine
 		my ($calling_package) = caller();
-		*{"${calling_package}::DEBUG"} = sub { 0 };
+        if ( ! defined &{"${calling_package}::DEBUG"} ) {
+        	*{"${calling_package}::DEBUG"} = sub { 0 };
+        }		
 		*{"${calling_package}::Dumper"} = sub {
             eval { require Data::Dumper };
             return Data::Dumper::Dumper(@_) unless $@;
@@ -341,6 +343,8 @@ This module provides a simple flexible and lightweight means of logging your deb
 
 =over 4
 
+=item Thanks to Tom Shinnick for the loading order fix.
+
 =item Thanks to Terrence Brannon (metaperl) for suggesting the lazily loaded C<Data::Dumper::Dumper> trick.
 
 =item Thanks to Mark Lawrence (nomad@null.net) for the patch to add debian/* files to allow for Debian users to easily install the module.
@@ -353,7 +357,7 @@ stevan little, E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2004, 2005 by Infinity Interactive, Inc.
+Copyright 2004-2007 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

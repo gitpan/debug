@@ -1,5 +1,8 @@
 Revision history for Perl extension debug.
 
+0.04 Mon. July 9, 2007
+    - added fix to loading ordering
+
 0.03 Wed July 6, 2005
     - added debian/* files to allow for Debian users to easily
       install the module. Thanks to Mark Lawrence for the patch.

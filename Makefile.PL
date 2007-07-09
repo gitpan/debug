@@ -1,6 +1,6 @@
 use ExtUtils::MakeMaker;
 
-my $version = '0.03';
+my $version = '0.04';
 my $name    = 'debug';
 my $fname   = "debug-$version";
 my $prereqs = {
